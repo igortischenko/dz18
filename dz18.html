@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class ToDo {
+        
+            constructor(title, text) {
+                this.title = title;
+                this.text = text;
+            }
+
+            status = false;
+
+            completeNote() {
+                this.status = true;
+            }
+
+            reductTitle(title, text) {
+                if (text) this.title = title;
+            }
+
+            reductText(text , args) {
+                if (args) this.text = text;
+            }
+
+            
+        }
+
+
+        class Note {
+            notes = [];
+
+            addNote(title, text) {
+                if (Note.checkUniq(title, this.notes)) this.notes.push(new ToDo(title, text));
+            }
+            
+            reductNoteText(index, text, args) {
+                this.notes.at(index).editText(text, agreement);
+            }
+
+            reductNoteTitle(index, title, args) {
+                this.notes.at(index).editTitle(title, args);
+            }
+
+            completeNote(index) {
+                this.notes.at(index).noteAsComplete();
+            }
+
+            getCountOfNote() {
+                return this.notes.reduce((info, note) => {
+                    if (!info.total) info.total = this.notes.length;
+
+                    if (!info[note.status]) info[note.status] = 0;
+
+                    info[note.status]++;
+
+                    return info;
+                }, {});
+            }
+
+            static checkUniq(title, array) {
+                return !array.find(item => item.title === title);
+            }
+        }  
+    </script>
+</body>
+
+</html>
